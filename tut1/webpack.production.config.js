@@ -58,8 +58,17 @@ module.exports={
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
+            filename:'hello-world.html',
+            chunks:['hello-world'],
             title:'hello-world',
-            template:'src/index.hbs',
+            template:'src/page-template.hbs',
+            description:'some description'
+        }),
+        new HtmlWebpackPlugin({
+            filename:'Cam.html',
+            chunks:['Cam'],
+            title:'hello-world',
+            template:'src/page-template.hbs',
             description:'some description'
         })
     ]
