@@ -13,6 +13,11 @@ module.exports={
         publicPath:''
     },
     mode:'production',
+    optimization: {
+        splitChunks:{
+            chunks:"all"
+        }
+    },
     module:{
         rules:[
             {
@@ -59,17 +64,17 @@ module.exports={
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             filename:'hello-world.html',
-            chunks:['hello-world'],
+            chunks:['hello-world','vendors~Cam~hello-world'],
             title:'hello-world',
             template:'src/page-template.hbs',
             description:'some description'
         }),
         new HtmlWebpackPlugin({
             filename:'Cam.html',
-            chunks:['Cam'],
-            title:'hello-world',
+            chunks:['Cam','vendors~Cam~hello-world'],
+            title:'Cam',
             template:'src/page-template.hbs',
-            description:'some description'
+            description:'Cam'
         })
     ]
 }
