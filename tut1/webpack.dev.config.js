@@ -1,12 +1,10 @@
 const path=require('path');
-const TerserPlugin=require('terser-webpack-plugin');
-const MiniCssExtractPlugin=require('mini-css-extract-plugin');
 const {CleanWebpackPlugin }=require('clean-webpack-plugin');
 const HtmlWebpackPlugin=require('html-webpack-plugin');
 module.exports={
     entry: './src/index.js',
     output: {
-        filename:'bundle.[contenthash].js',
+        filename:'bundle.js',
         path:path.resolve(__dirname, './dist'),
         publicPath:''
     },
@@ -22,13 +20,13 @@ module.exports={
             {
                 test: /\.css$/,
                 use: [
-                    MiniCssExtractPlugin.loader, 'css-loader'
+                    'style-loader', 'css-loader'
                 ]
             },
             {
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
+                    'style-loader', 'css-loader', 'sass-loader'
                 ]
             },
             {
@@ -51,10 +49,6 @@ module.exports={
         ]
     },
     plugins:[
-        new TerserPlugin(),
-        new MiniCssExtractPlugin({
-            filename:'styles.[contenthash].css'
-        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title:'hello-world',
