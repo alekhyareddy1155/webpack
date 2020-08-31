@@ -1,32 +1,28 @@
-const path=require('path');
-const MiniCssExtractPlugin=require('mini-css-extract-plugin');
-const {CleanWebpackPlugin }=require('clean-webpack-plugin');
-const HtmlWebpackPlugin=require('html-webpack-plugin');
-module.exports={
-    // entry: {
-    //     'hello-world': './src/hello-world.js',
-    //     'Cam':'./src/Cam.js'
-    // },
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
     entry: './src/index.js',
     output: {
-        // filename:'[name].[contenthash].js',
         filename: 'bundle.[contenthash].js',
-        path:path.resolve(__dirname, './dist'),
-        publicPath:''
+        path: path.resolve(__dirname, './dist'),
+        publicPath: ''
     },
-    mode:'production',
-    // optimization: {
-    //     splitChunks:{
-    //         chunks:"all",
-    //         minSize:10000,
-    //         automaticNameDelimiter:'_'
-    //     }
-    // },
-    module:{
-        rules:[
+    mode: 'production',
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            minSize: 10000,
+            automaticNameDelimiter: '_'
+        }
+    },
+    module: {
+        rules: [
             {
-                test:/\.(png|jpg)$/,
-                use:[
+                test: /\.(png|jpg)$/,
+                use: [
                     'file-loader'
                 ]
             },
@@ -43,43 +39,33 @@ module.exports={
                 ]
             },
             {
-                test:/\.js$/,
-                exclude:/node_modules/,
-                use:{
-                    loader:'babel-loader',
-                    options:{
-                        presets:[ '@babel/env' ],
-                        plugins:[ 'transform-class-properties' ]
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [ '@babel/env' ],
+                        plugins: [ '@babel/plugin-proposal-class-properties' ]
                     }
-                },
+                }
             },
             {
-                test:/\.hbs$/,
-                use:[
+                test: /\.hbs$/,
+                use: [
                     'handlebars-loader'
                 ]
             }
         ]
     },
-    plugins:[
+    plugins: [
         new MiniCssExtractPlugin({
-            // filename:'[name].[contenthash].css'
-            filename: 'styles.[contenthash].js',
+            filename: 'styles.[contenthash].css'
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            // filename:'hello-world.html',
-            // chunks:['hello-world','vendors~Cam~hello-world'],
-            title:'hello-world',
-            template:'src/page-template.hbs',
-            description:'some description'
+            title: 'Hello world',
+            description: 'Hello world',
+            template: 'src/page-template.hbs'
         })
-        // new HtmlWebpackPlugin({
-        //     filename:'Cam.html',
-        //     chunks:['Cam','vendors~Cam~hello-world'],
-        //     title:'Cam',
-        //     template:'src/page-template.hbs',
-        //     description:'Cam'
-        // })
     ]
-}
+};

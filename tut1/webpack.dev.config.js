@@ -1,29 +1,25 @@
-const path=require('path');
-const {CleanWebpackPlugin }=require('clean-webpack-plugin');
-const HtmlWebpackPlugin=require('html-webpack-plugin');
-module.exports={
-    // entry: {
-    //     // 'hello-world': './src/hello-world.js',
-    //     // 'Cam':'./src/Cam.js'
-        
-    // },
+const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
     entry: './src/index.js',
     output: {
-        filename:'[name].bundle.js',
-        path:path.resolve(__dirname, './dist'),
-        publicPath:''
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, './dist'),
+        publicPath: ''
     },
-    mode:'development',
-    devServer:{
+    mode: 'development',
+    devServer: {
         contentBase: path.resolve(__dirname, './dist'),
-        index:'index.html',
-        port:9000
+        index: 'index.html',
+        port: 9000
     },
-    module:{
-        rules:[
+    module: {
+        rules: [
             {
-                test:/\.(png|jpg)$/,
-                use:[
+                test: /\.(png|jpg)$/,
+                use: [
                     'file-loader'
                 ]
             },
@@ -40,39 +36,30 @@ module.exports={
                 ]
             },
             {
-                test:/\.js$/,
-                exclude:/node_modules/,
-                use:{
-                    loader:'babel-loader',
-                    options:{
-                        presets:[ '@babel/env' ],
-                        plugins:[ 'transform-class-properties' ]
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [ '@babel/env' ],
+                        plugins: [ '@babel/plugin-proposal-class-properties' ]
                     }
-                },
+                }
             },
             {
-                test:/\.hbs$/,
-                use:[
+                test: /\.hbs$/,
+                use: [
                     'handlebars-loader'
                 ]
             }
         ]
     },
-    plugins:[
+    plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            // filename:'hello-world.html',
-            // chunks:['hello-world'],
-            title:'hello-world',
-            template:'src/page-template.hbs',
-            description:'some description'
+            title: 'Hello world',
+            description: 'Hello world',
+            template: 'src/page-template.hbs'
         })
-        // new HtmlWebpackPlugin({
-        //     filename:'Cam.html',
-        //     chunks:['Cam'],
-        //     title:'Cam',
-        //     template:'src/page-template.hbs',
-        //     description:'Cam'
-        // })
     ]
-}
+};
