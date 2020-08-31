@@ -3,23 +3,25 @@ const MiniCssExtractPlugin=require('mini-css-extract-plugin');
 const {CleanWebpackPlugin }=require('clean-webpack-plugin');
 const HtmlWebpackPlugin=require('html-webpack-plugin');
 module.exports={
-    entry: {
-        'hello-world': './src/hello-world.js',
-        'Cam':'./src/Cam.js'
-    },
+    // entry: {
+    //     'hello-world': './src/hello-world.js',
+    //     'Cam':'./src/Cam.js'
+    // },
+    entry: './src/index.js',
     output: {
-        filename:'[name].[contenthash].js',
+        // filename:'[name].[contenthash].js',
+        filename: 'bundle.[contenthash].js',
         path:path.resolve(__dirname, './dist'),
-        publicPath:'/static/'
+        publicPath:''
     },
     mode:'production',
-    optimization: {
-        splitChunks:{
-            chunks:"all",
-            minSize:10000,
-            automaticNameDelimiter:'_'
-        }
-    },
+    // optimization: {
+    //     splitChunks:{
+    //         chunks:"all",
+    //         minSize:10000,
+    //         automaticNameDelimiter:'_'
+    //     }
+    // },
     module:{
         rules:[
             {
@@ -61,22 +63,23 @@ module.exports={
     },
     plugins:[
         new MiniCssExtractPlugin({
-            filename:'[name].[contenthash].css'
+            // filename:'[name].[contenthash].css'
+            filename: 'styles.[contenthash].js',
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            filename:'hello-world.html',
-            chunks:['hello-world','vendors~Cam~hello-world'],
+            // filename:'hello-world.html',
+            // chunks:['hello-world','vendors~Cam~hello-world'],
             title:'hello-world',
             template:'src/page-template.hbs',
             description:'some description'
-        }),
-        new HtmlWebpackPlugin({
-            filename:'Cam.html',
-            chunks:['Cam','vendors~Cam~hello-world'],
-            title:'Cam',
-            template:'src/page-template.hbs',
-            description:'Cam'
         })
+        // new HtmlWebpackPlugin({
+        //     filename:'Cam.html',
+        //     chunks:['Cam','vendors~Cam~hello-world'],
+        //     title:'Cam',
+        //     template:'src/page-template.hbs',
+        //     description:'Cam'
+        // })
     ]
 }
