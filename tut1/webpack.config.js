@@ -52,7 +52,6 @@ module.exports={
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title:'hello world',
-            filename:'subfolder/custom_filename.html',
             meta:{
                 description:'some description'
             }
